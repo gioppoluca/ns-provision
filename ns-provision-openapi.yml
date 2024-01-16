@@ -1,0 +1,105 @@
+openapi: '3.0.2'
+info:
+  title: Namespace provisioning
+  version: '1.0'
+servers:
+  - url: https://api-namespace-provision.k8s-csi-svil01.nivolapiemonte.it/v1
+components:
+  schemas:
+    namespace:
+      type: object
+      properties:
+        id:
+          type: string
+    namespaceArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/namespace'
+   
+    provisioningArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/provisioning'
+    provisioning:
+      type: object
+      properties:
+        max_cpu:
+          type: string
+        max_ram:
+          type: string
+        max_storage:
+          type: string
+        cluster:
+          type: string
+        cod_prog:
+          type: string
+        afqdn:
+          type: array
+          items:
+            type: string
+    cluster:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        csi:
+          type: boolean
+        production:
+          type: boolean
+    clusterArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/cluster'
+paths:
+  /namespaces:
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/namespaceArray'
+      parameters:
+      - name: cluster_id
+        in: query
+        schema:
+          type: string
+      - name: account_id
+        in: query
+        schema:
+          type: string
+  /provision-namespaces:
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/provisioningArray'
+    post:
+      description: 'Create a new namespace in a cluster'
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/provisioning'
+  /clusters:
+    get:
+      description: 'Get the aviable clusters'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/clusterArray'
+
+      
+
