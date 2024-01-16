@@ -7,7 +7,7 @@ from __future__ import annotations
 from typing import Optional
 
 from fastapi import FastAPI
-
+from fastapi.staticfiles import StaticFiles
 from models import ClusterArray, Cluster, NamespaceArray, Provisioning, ProvisioningArray
 
 app = FastAPI(
@@ -15,11 +15,12 @@ app = FastAPI(
     version='1.0',
 )
 
+app.mount('/static', StaticFiles(directory='static',html=True))
 
 @app.get('/clusters', response_model=ClusterArray)
 def get_clusters() -> ClusterArray:
     return [
-        Cluster(id="Portal Gun", name="42.0", csi=True, production=True),
+        Cluster(value="Portal Gun", text="42.0", csi=True, production=True),
     ]
     pass
 
