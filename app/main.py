@@ -20,7 +20,7 @@ app.mount('/static', StaticFiles(directory='static',html=True))
 @app.get('/clusters', response_model=ClusterArray)
 def get_clusters() -> ClusterArray:
     return [
-        Cluster(value="Portal Gun", text="42.0", csi=True, production=True),
+        Cluster(id="Portal Gun", name="42.0", csi=True, production=True),
     ]
     pass
 

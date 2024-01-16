@@ -27,8 +27,8 @@ class Provisioning(BaseModel):
 
 
 class Cluster(BaseModel):
-    value: Optional[str] = None
-    text: Optional[str] = None
+    id: Optional[str] = None
+    name: Optional[str] = None
     csi: Optional[bool] = None
     production: Optional[bool] = None
 

@@ -40,9 +40,9 @@ components:
     cluster:
       type: object
       properties:
-        value:
+        id:
           type: string
-        text:
+        name:
           type: string
         csi:
           type: boolean
